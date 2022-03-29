@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">698603643149-g8j78l5tefbh7jh5a85kk9n9moqep3e6.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">698603643149</string>
+    <string name="google_api_key" translatable="false">AIzaSyBWXZLiQxBp4ce-QFTyhkCIqmS-eGNOdsM</string>
+    <string name="google_app_id" translatable="false">1:698603643149:android:1d81d757627cd47ef6d044</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBWXZLiQxBp4ce-QFTyhkCIqmS-eGNOdsM</string>
+    <string name="google_storage_bucket" translatable="false">smoke-24.appspot.com</string>
+    <string name="project_id" translatable="false">smoke-24</string>
+</resources>

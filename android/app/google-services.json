@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "698603643149",
+    "project_id": "smoke-24",
+    "storage_bucket": "smoke-24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698603643149:android:1d81d757627cd47ef6d044",
+        "android_client_info": {
+          "package_name": "com.example.shisha_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698603643149-g8j78l5tefbh7jh5a85kk9n9moqep3e6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWXZLiQxBp4ce-QFTyhkCIqmS-eGNOdsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698603643149-g8j78l5tefbh7jh5a85kk9n9moqep3e6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
