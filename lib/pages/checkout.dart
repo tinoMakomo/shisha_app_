@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +27,9 @@ class checkoutPageState extends State<checkoutPage> {
   var totalPriceString = "";
   bool showlist = false;
   bool showPayfast = false;
+  bool signedIn = false;
+  String userid = "";
+
   final databaseReference = FirebaseFirestore.instance;
   var overlayLoader;
   showLoader(BuildContext context) async {
@@ -73,6 +76,17 @@ class checkoutPageState extends State<checkoutPage> {
     for(int i = 0; i < cartProducts.length; i ++){
       totalPrice = totalPrice + double.parse(cartProducts[i]['total_price']);
     }
+  }
+
+  getId() async {
+    if (await FirebaseAuth.instance.currentUser != null) {
+      print('signed in');
+      setState(() {
+        signedIn = true;
+        userid = FirebaseAuth.instance.currentUser!.uid;
+      });
+    }
+    print(userid);
   }
 
   @override

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\firebase_core\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-tl\\values-tl.xml",
+            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\firebase_core\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-tl\\values-tl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\6dfe55f2892c904b30694fb29ee43466\\transformed\\jetified-play-services-basement-17.0.0\\res\\values-tl\\values.xml",
@@ -40,7 +40,7 @@
             ]
         },
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\firebase_core\\intermediates\\res\\merged\\release\\values-tl\\values-tl.xml",
+            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\firebase_core\\intermediates\\res\\merged\\release\\values-tl\\values-tl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\6dfe55f2892c904b30694fb29ee43466\\transformed\\jetified-play-services-basement-17.0.0\\res\\values-tl\\values.xml",

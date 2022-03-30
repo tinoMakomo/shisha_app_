@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\values-sv\\values-sv.xml",
+            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\values-sv\\values-sv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\ebdc82443e39cb493c9a28d051f38d59\\transformed\\jetified-play-services-base-17.0.0\\res\\values-sv\\values.xml",
@@ -57,7 +57,7 @@
             ]
         },
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\google_maps_flutter\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sv\\values-sv.xml",
+            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\google_maps_flutter\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sv\\values-sv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\ebdc82443e39cb493c9a28d051f38d59\\transformed\\jetified-play-services-base-17.0.0\\res\\values-sv\\values.xml",

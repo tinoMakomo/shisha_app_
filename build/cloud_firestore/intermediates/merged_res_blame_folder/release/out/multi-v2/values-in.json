@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\cloud_firestore\\intermediates\\res\\merged\\release\\values-in\\values-in.xml",
+            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\cloud_firestore\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-in\\values-in.xml",
             "map": [
                 {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\d6df361811db43d34c103adc69afbff4\\transformed\\jetified-play-services-base-17.1.0\\res\\values-in\\values.xml",
@@ -57,7 +57,7 @@
             ]
         },
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\cloud_firestore\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-in\\values-in.xml",
+            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\cloud_firestore\\intermediates\\res\\merged\\release\\values-in\\values-in.xml",
             "map": [
                 {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\d6df361811db43d34c103adc69afbff4\\transformed\\jetified-play-services-base-17.1.0\\res\\values-in\\values.xml",

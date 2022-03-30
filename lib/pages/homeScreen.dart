@@ -560,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
-      GestureDetector(
+     /* GestureDetector(
           onTap: (){
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) => ViewCategory('Shisha', iconUrl
@@ -575,7 +575,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.cover,
               ),
             ),
-          )),
+          )), */
       GestureDetector(
           onTap: (){
             Navigator.push(context,
@@ -1172,7 +1172,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.blueGrey[800]),
                                   ),
-                                  Row(
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (BuildContext context) => ViewCategory('Favourites', ''
+                                          )));
+                                    },
+                                  child:Row(
                                     children: [
                                       Text(
                                         'View all ',
@@ -1182,6 +1188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       const Icon(Icons.arrow_forward_ios_sharp,size: 20,)
                                     ],
+                                  )
                                   ),
                                 ],
                               ),

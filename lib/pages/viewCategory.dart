@@ -144,7 +144,20 @@ class _ViewCategoryState extends State<ViewCategory> {
             fontWeight: FontWeight.bold
           ),
           unselectedLabelColor:Colors.black26,
-          tabs: const [
+          tabs: category == 'alcohol'? const [
+            Tab(
+              text: "All",
+            ),
+            Tab(
+              text: "Beer",
+            ),
+            Tab(
+              text: "Ciders",
+            ),
+            Tab(
+              text: "Spirits",
+            ),
+          ]:  const [
             Tab(
               text: "All",
             ),

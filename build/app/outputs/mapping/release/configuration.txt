@@ -1,4 +1,4 @@
-# The proguard configuration file for the following section is C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\app\intermediates\proguard-files\proguard-android.txt-4.2.0
+# The proguard configuration file for the following section is C:\Users\USER\Documents\StudioProjects\shisha_app\build\app\intermediates\proguard-files\proguard-android.txt-4.2.0
 # This is a configuration file for ProGuard.
 # http://proguard.sourceforge.net/index.html#manual/usage.html
 #
@@ -110,7 +110,7 @@
 # These classes are duplicated between android.jar and core-lambda-stubs.jar.
 -dontnote java.lang.invoke.**
 
-# End of content from C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\app\intermediates\proguard-files\proguard-android.txt-4.2.0
+# End of content from C:\Users\USER\Documents\StudioProjects\shisha_app\build\app\intermediates\proguard-files\proguard-android.txt-4.2.0
 # The proguard configuration file for the following section is C:\Users\USER\Documents\flutter\packages\flutter_tools\gradle\flutter_proguard_rules.pro
 # Build the ephemeral app in a module project.
 # Prevents: Warning: library class <plugin-package> depends on program class io.flutter.plugin.**
@@ -121,21 +121,30 @@
 -dontwarn android.**
 
 # End of content from C:\Users\USER\Documents\flutter\packages\flutter_tools\gradle\flutter_proguard_rules.pro
-# The proguard configuration file for the following section is C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\app\intermediates\aapt_proguard_file\release\aapt_rules.txt
+# The proguard configuration file for the following section is C:\Users\USER\Documents\StudioProjects\shisha_app\build\app\intermediates\aapt_proguard_file\release\aapt_rules.txt
 -keep class android.app.Application { <init>(); }
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
 -keep class com.example.shisha_app.MainActivity { <init>(); }
+-keep class com.google.android.datatransport.runtime.backends.TransportBackendDiscovery { <init>(); }
+-keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver { <init>(); }
+-keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService { <init>(); }
 -keep class com.google.android.gms.common.api.GoogleApiActivity { <init>(); }
 -keep class com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService { <init>(); }
 -keep class com.google.firebase.auth.internal.GenericIdpActivity { <init>(); }
 -keep class com.google.firebase.auth.internal.RecaptchaActivity { <init>(); }
 -keep class com.google.firebase.components.ComponentDiscoveryService { <init>(); }
+-keep class com.google.firebase.iid.FirebaseInstanceIdReceiver { <init>(); }
+-keep class com.google.firebase.messaging.FirebaseMessagingService { <init>(); }
 -keep class com.google.firebase.provider.FirebaseInitProvider { <init>(); }
+-keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService { <init>(); }
+-keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider { <init>(); }
+-keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver { <init>(); }
+-keep class io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService { <init>(); }
 -keep class androidx.browser.browseractions.BrowserActionsFallbackMenuView { <init>(android.content.Context, android.util.AttributeSet); }
 
 
-# End of content from C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\app\intermediates\aapt_proguard_file\release\aapt_rules.txt
-# The proguard configuration file for the following section is C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\flutter_plugin_android_lifecycle\intermediates\consumer_proguard_dir\release\lib0\proguard.txt
+# End of content from C:\Users\USER\Documents\StudioProjects\shisha_app\build\app\intermediates\aapt_proguard_file\release\aapt_rules.txt
+# The proguard configuration file for the following section is C:\Users\USER\Documents\StudioProjects\shisha_app\build\flutter_plugin_android_lifecycle\intermediates\consumer_proguard_dir\release\lib0\proguard.txt
 # The point of this package is to specify that a dependent plugin intends to
 # use the AndroidX lifecycle classes. Make sure no R8 heuristics shrink classes
 # brought in by the embedding's pom.
@@ -146,7 +155,7 @@
 # https://issuetracker.google.com/issues/142778206.
 -keep class androidx.lifecycle.DefaultLifecycleObserver
 
-# End of content from C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\flutter_plugin_android_lifecycle\intermediates\consumer_proguard_dir\release\lib0\proguard.txt
+# End of content from C:\Users\USER\Documents\StudioProjects\shisha_app\build\flutter_plugin_android_lifecycle\intermediates\consumer_proguard_dir\release\lib0\proguard.txt
 # The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\55c8e1cf899ef1a978a64fea24ac38a3\transformed\jetified-window-1.0.0-beta04\proguard.txt
 # Copyright (C) 2020 The Android Open Source Project
 #
@@ -260,6 +269,21 @@
 }
 
 # End of content from C:\Users\USER\.gradle\caches\transforms-3\376ef0c9191817e24934ac2f2842b8be\transformed\jetified-grpc-android-1.41.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\d614b914be56516fc2d953ffaa225215\transformed\jetified-firebase-messaging-23.0.0\proguard.txt
+# Analytics library is optional.
+# Access to this class is protected by try/catch(NoClassDefFoundError e)
+# b/35686744 Don't fail during proguard if the class is missing from the APK.
+-dontwarn com.google.android.gms.measurement.AppMeasurement*
+
+# End of content from C:\Users\USER\.gradle\caches\transforms-3\d614b914be56516fc2d953ffaa225215\transformed\jetified-firebase-messaging-23.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\7e11358af20c0f0579014cbd2887846c\transformed\jetified-transport-backend-cct-3.0.0\proguard.txt
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# End of content from C:\Users\USER\.gradle\caches\transforms-3\7e11358af20c0f0579014cbd2887846c\transformed\jetified-transport-backend-cct-3.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\5cb3347194a061beeeb3dff097ef0444\transformed\jetified-firebase-encoders-json-18.0.0\proguard.txt
+
+# End of content from C:\Users\USER\.gradle\caches\transforms-3\5cb3347194a061beeeb3dff097ef0444\transformed\jetified-firebase-encoders-json-18.0.0\proguard.txt
 # The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\a4992bf358ce6e5d72f6c6568342c3d4\transformed\jetified-firebase-auth-21.0.1\proguard.txt
 -dontwarn com.google.appengine.api.**
 -dontwarn okio.**
@@ -301,6 +325,53 @@
 -dontwarn com.google.auto.value.AutoValue$Builder
 
 # End of content from C:\Users\USER\.gradle\caches\transforms-3\121c7991d68e25f9ab2c991446c3cc3c\transformed\jetified-firebase-common-20.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\28f97a7ea9a2f0b5ad5a44b91e484f6e\transformed\webkit-1.0.0\proguard.txt
+# Copyright 2018 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# We need to avoid obfuscating the support library boundary interface because
+# this API is shared with the Android Support Library.
+# Note that we only 'keep' the package org.chromium.support_lib_boundary itself,
+# any sub-packages of that package can still be obfuscated.
+-keep public class org.chromium.support_lib_boundary.* { public *; }
+
+# Copyright (C) 2018 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Prevent WebViewClientCompat from being renamed, since chromium depends on this name.
+-keepnames public class androidx.webkit.WebViewClientCompat
+
+
+# End of content from C:\Users\USER\.gradle\caches\transforms-3\28f97a7ea9a2f0b5ad5a44b91e484f6e\transformed\webkit-1.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\d6247d022574081aad374e0f4ed8e6d8\transformed\jetified-transport-runtime-3.0.0\proguard.txt
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# End of content from C:\Users\USER\.gradle\caches\transforms-3\d6247d022574081aad374e0f4ed8e6d8\transformed\jetified-transport-runtime-3.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\a4773ef1ce06495626d071e040bb2920\transformed\jetified-transport-api-3.0.0\proguard.txt
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# End of content from C:\Users\USER\.gradle\caches\transforms-3\a4773ef1ce06495626d071e040bb2920\transformed\jetified-transport-api-3.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\a60a43c3b0ccea5dacfbc269eb5f0305\transformed\jetified-firebase-components-17.0.0\proguard.txt
+-dontwarn com.google.firebase.components.Component$Instantiation
+-dontwarn com.google.firebase.components.Component$ComponentType
+
+-keep class * implements com.google.firebase.components.ComponentRegistrar
+
+# End of content from C:\Users\USER\.gradle\caches\transforms-3\a60a43c3b0ccea5dacfbc269eb5f0305\transformed\jetified-firebase-components-17.0.0\proguard.txt
 # The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\d6df361811db43d34c103adc69afbff4\transformed\jetified-play-services-base-17.1.0\proguard.txt
 # b/35135904 Ensure that proguard will not strip the mResultGuardian.
 -keepclassmembers class com.google.android.gms.common.api.internal.BasePendingResult {
@@ -460,13 +531,6 @@
 }
 
 # End of content from C:\Users\USER\.gradle\caches\transforms-3\222e0d351911a964c2270ab640bb7541\transformed\jetified-savedstate-1.0.0\proguard.txt
-# The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\a60a43c3b0ccea5dacfbc269eb5f0305\transformed\jetified-firebase-components-17.0.0\proguard.txt
--dontwarn com.google.firebase.components.Component$Instantiation
--dontwarn com.google.firebase.components.Component$ComponentType
-
--keep class * implements com.google.firebase.components.ComponentRegistrar
-
-# End of content from C:\Users\USER\.gradle\caches\transforms-3\a60a43c3b0ccea5dacfbc269eb5f0305\transformed\jetified-firebase-components-17.0.0\proguard.txt
 # The proguard configuration file for the following section is C:\Users\USER\.gradle\caches\transforms-3\3ea962b7b5ac24a39e40979dd8f54fbc\transformed\versionedparcelable-1.1.1\proguard.txt
 -keep class * implements androidx.versionedparcelable.VersionedParcelable
 -keep public class android.support.**Parcelizer { *; }

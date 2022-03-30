@@ -264,8 +264,6 @@ class loginPageState extends State<loginPage> {
         setState(() {
           isLoading = true;
         });
-
-        showLoader(context);
         await auth.signInWithEmailAndPassword(
             email: _controller2.text,
             password: _controller.text);

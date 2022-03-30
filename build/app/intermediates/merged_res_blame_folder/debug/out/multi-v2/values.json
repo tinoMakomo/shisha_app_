@@ -1,25 +1,8 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
-                {
-                    "source": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\build\\app\\generated\\res\\google-services\\debug\\values\\values.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "55,199,281,385,494,614,706",
-                        "endColumns": "143,81,103,108,119,91,68",
-                        "endOffsets": "194,276,380,489,609,701,770"
-                    },
-                    "to": {
-                        "startLines": "126,128,129,130,131,132,133",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "8966,9192,9274,9378,9487,9607,9699",
-                        "endColumns": "143,81,103,108,119,91,68",
-                        "endOffsets": "9105,9269,9373,9482,9602,9694,9763"
-                    }
-                },
                 {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\83ceff8ac84ac464f0996476a6f124b3\\transformed\\coordinatorlayout-1.0.0\\res\\values\\values.xml",
                     "from": {
@@ -95,6 +78,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\app\\generated\\res\\google-services\\debug\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,199,281,385,494,614,706",
+                        "endColumns": "143,81,103,108,119,91,68",
+                        "endOffsets": "194,276,380,489,609,701,770"
+                    },
+                    "to": {
+                        "startLines": "126,128,129,130,131,132,133",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "8966,9192,9274,9378,9487,9607,9699",
+                        "endColumns": "143,81,103,108,119,91,68",
+                        "endOffsets": "9105,9269,9373,9482,9602,9694,9763"
+                    }
+                },
+                {
                     "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\424152cdc209c96bc732bd2137dfa338\\transformed\\jetified-play-services-basement-17.1.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "4,7",
@@ -131,7 +131,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\USER\\Documents\\StudioProjects\\Smoke_24_App\\shisha_app\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\456686bfebf0e32c60f698b9be1560b9\\transformed\\browser-1.0.0\\res\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,113,179,242,304,375",
+                        "endColumns": "57,65,62,61,70,71",
+                        "endOffsets": "108,174,237,299,370,442"
+                    },
+                    "to": {
+                        "startLines": "14,15,16,17,28,29",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "722,780,846,909,1774,1845",
+                        "endColumns": "57,65,62,61,70,71",
+                        "endOffsets": "775,841,904,966,1840,1912"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
@@ -147,23 +164,6 @@
                         "endLines": "139,142",
                         "endColumns": "12,12",
                         "endOffsets": "10131,10300"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\456686bfebf0e32c60f698b9be1560b9\\transformed\\browser-1.0.0\\res\\values\\values.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "55,113,179,242,304,375",
-                        "endColumns": "57,65,62,61,70,71",
-                        "endOffsets": "108,174,237,299,370,442"
-                    },
-                    "to": {
-                        "startLines": "14,15,16,17,28,29",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "722,780,846,909,1774,1845",
-                        "endColumns": "57,65,62,61,70,71",
-                        "endOffsets": "775,841,904,966,1840,1912"
                     }
                 },
                 {

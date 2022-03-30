@@ -12,14 +12,14 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\android\app\src\debug\AndroidManifest.xml:6:22-64
+14-->C:\Users\USER\Documents\StudioProjects\shisha_app\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\USER\Documents\StudioProjects\shisha_app\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.WAKE_LOCK" />
-15-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-68
-15-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-65
+15-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-68
+15-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-65
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
-16-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
-16-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
+16-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+16-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
 17    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 17-->[com.google.firebase:firebase-messaging:23.0.0] C:\Users\USER\.gradle\caches\transforms-3\d614b914be56516fc2d953ffaa225215\transformed\jetified-firebase-messaging-23.0.0\AndroidManifest.xml:25:5-82
 17-->[com.google.firebase:firebase-messaging:23.0.0] C:\Users\USER\.gradle\caches\transforms-3\d614b914be56516fc2d953ffaa225215\transformed\jetified-firebase-messaging-23.0.0\AndroidManifest.xml:25:22-79
@@ -72,43 +72,43 @@
 60            android:value="2" />
 61
 62        <service
-62-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-12:19
+62-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-12:19
 63            android:name="com.google.firebase.components.ComponentDiscoveryService"
-63-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:8:18-89
+63-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:8:18-89
 64            android:directBootAware="true"
 64-->[com.google.firebase:firebase-common:20.0.0] C:\Users\USER\.gradle\caches\transforms-3\121c7991d68e25f9ab2c991446c3cc3c\transformed\jetified-firebase-common-20.0.0\AndroidManifest.xml:35:13-43
 65            android:exported="false" >
 65-->[com.google.firebase:firebase-firestore:24.0.1] C:\Users\USER\.gradle\caches\transforms-3\0eb2b6440eaaa22af86cca2f30b85da8\transformed\jetified-firebase-firestore-24.0.1\AndroidManifest.xml:19:13-37
 66            <meta-data
-66-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
+66-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
 67                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
-67-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-134
+67-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-134
 68                android:value="com.google.firebase.components.ComponentRegistrar" />
-68-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
+68-->[:cloud_firestore] C:\Users\USER\Documents\StudioProjects\shisha_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
 69            <meta-data
-69-->[:firebase_auth] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
+69-->[:firebase_auth] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
 70                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
-70-->[:firebase_auth] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-124
+70-->[:firebase_auth] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-124
 71                android:value="com.google.firebase.components.ComponentRegistrar" />
-71-->[:firebase_auth] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
+71-->[:firebase_auth] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
 72            <meta-data
-72-->[:firebase_storage] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
+72-->[:firebase_storage] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
 73                android:name="com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar"
-73-->[:firebase_storage] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-126
+73-->[:firebase_storage] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-126
 74                android:value="com.google.firebase.components.ComponentRegistrar" />
-74-->[:firebase_storage] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
+74-->[:firebase_storage] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
 75            <meta-data
-75-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-36:85
+75-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-36:85
 76                android:name="com.google.firebase.components:io.flutter.plugins.firebase.messaging.FlutterFirebaseAppRegistrar"
-76-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:35:17-128
+76-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:35:17-128
 77                android:value="com.google.firebase.components.ComponentRegistrar" />
-77-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:36:17-82
+77-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:36:17-82
 78            <meta-data
-78-->[:firebase_core] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
+78-->[:firebase_core] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-11:85
 79                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
-79-->[:firebase_core] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-124
+79-->[:firebase_core] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:10:17-124
 80                android:value="com.google.firebase.components.ComponentRegistrar" />
-80-->[:firebase_core] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
+80-->[:firebase_core] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:11:17-82
 81            <meta-data
 81-->[com.google.firebase:firebase-firestore:24.0.1] C:\Users\USER\.gradle\caches\transforms-3\0eb2b6440eaaa22af86cca2f30b85da8\transformed\jetified-firebase-firestore-24.0.1\AndroidManifest.xml:20:13-22:85
 82                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
@@ -147,53 +147,53 @@
 98-->[com.google.firebase:firebase-installations:17.0.0] C:\Users\USER\.gradle\caches\transforms-3\15c5df8887df158221c9b02c46a7269f\transformed\jetified-firebase-installations-17.0.0\AndroidManifest.xml:20:17-82
 99        </service>
 100        <service
-100-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-15:72
+100-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-15:72
 101            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
-101-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-107
+101-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-107
 102            android:exported="false"
-102-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-37
+102-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-37
 103            android:permission="android.permission.BIND_JOB_SERVICE" />
-103-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-69
+103-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-69
 104        <service
-104-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-22:19
+104-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-22:19
 105            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService"
-105-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-97
+105-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-97
 106            android:exported="false" >
-106-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-37
+106-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-37
 107            <intent-filter>
-107-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-21:29
+107-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-21:29
 108                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-108-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:17-78
-108-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:25-75
+108-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:17-78
+108-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:25-75
 109            </intent-filter>
 110        </service>
 111
 112        <receiver
-112-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:24:9-31:20
+112-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:24:9-31:20
 113            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver"
-113-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-98
+113-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-98
 114            android:exported="true"
-114-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-36
+114-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-36
 115            android:permission="com.google.android.c2dm.permission.SEND" >
-115-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-73
+115-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-73
 116            <intent-filter>
-116-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-30:29
+116-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-30:29
 117                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-117-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:17-81
-117-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:25-78
+117-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:17-81
+117-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:25-78
 118            </intent-filter>
 119        </receiver>
 120
 121        <provider
-121-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:39:9-43:38
+121-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:39:9-43:38
 122            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
-122-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-102
+122-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-102
 123            android:authorities="com.example.shisha_app.flutterfirebasemessaginginitprovider"
-123-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-88
+123-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-88
 124            android:exported="false"
-124-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-37
+124-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-37
 125            android:initOrder="99" />
-125-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-35
+125-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-35
 126
 127        <uses-library
 127-->[androidx.window:window:1.0.0-beta04] C:\Users\USER\.gradle\caches\transforms-3\55c8e1cf899ef1a978a64fea24ac38a3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
@@ -217,10 +217,10 @@
 137            android:permission="com.google.android.c2dm.permission.SEND" >
 137-->[com.google.firebase:firebase-messaging:23.0.0] C:\Users\USER\.gradle\caches\transforms-3\d614b914be56516fc2d953ffaa225215\transformed\jetified-firebase-messaging-23.0.0\AndroidManifest.xml:31:13-73
 138            <intent-filter>
-138-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-30:29
+138-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-30:29
 139                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-139-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:17-81
-139-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:25-78
+139-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:17-81
+139-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:29:25-78
 140            </intent-filter>
 141        </receiver>
 142        <!--
@@ -236,10 +236,10 @@
 149            android:exported="false" >
 149-->[com.google.firebase:firebase-messaging:23.0.0] C:\Users\USER\.gradle\caches\transforms-3\d614b914be56516fc2d953ffaa225215\transformed\jetified-firebase-messaging-23.0.0\AndroidManifest.xml:44:13-37
 150            <intent-filter android:priority="-500" >
-150-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-21:29
+150-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-21:29
 151                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-151-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:17-78
-151-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\Smoke_24_App\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:25-75
+151-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:17-78
+151-->[:firebase_messaging] C:\Users\USER\Documents\StudioProjects\shisha_app\build\firebase_messaging\intermediates\merged_manifest\debug\AndroidManifest.xml:20:25-75
 152            </intent-filter>
 153        </service>
 154        <service
