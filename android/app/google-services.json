@@ -9,10 +9,18 @@
       "client_info": {
         "mobilesdk_app_id": "1:698603643149:android:1d81d757627cd47ef6d044",
         "android_client_info": {
-          "package_name": "com.example.shisha_app"
+          "package_name": "app.smoke24.shisha_app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "698603643149-dsfe0sm1tpaath9tgh5sbu3tb6duh39r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shisha_app",
+            "certificate_hash": "e8c12c681b6d55fb8ba65edeadd51cb3b9f1221e"
+          }
+        },
         {
           "client_id": "698603643149-g8j78l5tefbh7jh5a85kk9n9moqep3e6.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +37,13 @@
             {
               "client_id": "698603643149-g8j78l5tefbh7jh5a85kk9n9moqep3e6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "698603643149-7f9ar4dt607jqm1c1ttdtea5l5rrok4m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shishaApp"
+              }
             }
           ]
         }

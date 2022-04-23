@@ -5,15 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shisha_app/pages/login.dart';
 import 'package:shisha_app/pages/myProfile.dart';
 import 'package:shisha_app/pages/notifications.dart';
-import 'package:shisha_app/pages/signUp.dart';
+import 'package:shisha_app/pages/search.dart';
 import 'package:shisha_app/pages/viewCategory.dart';
 import 'package:shisha_app/pages/viewProduct.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as Path;
 import 'checkout.dart';
+import '/utils/globals.dart' as globals;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,6 +36,21 @@ class _HomeScreenState extends State<HomeScreen> {
   int cartItems = 1;
   bool signedIn = false;
   String userid = "";
+  var cartProducts;
+  int? cartCount = 0;
+
+  loadCart() async {
+    String databasesPath = await getDatabasesPath();
+    String dbPath = Path.join(databasesPath, 'tables');
+
+    Database database = await openDatabase(dbPath, version: 1);
+
+    var result = await database.rawQuery('SELECT * FROM cart');
+    setState(() {
+      globals.cartCount = Sqflite.firstIntValue(result);
+    });
+    print(globals.cartCount);
+  }
 
   getId() async {
     if (await FirebaseAuth.instance.currentUser != null) {
@@ -46,10 +63,32 @@ class _HomeScreenState extends State<HomeScreen> {
     print(userid);
   }
 
+  String user_snapshot_id = "";
+  bool hasNotification = false;
+  getData() async {
+    getId();
+    await Future.delayed(Duration(milliseconds: 2000));
+    if (signedIn) {
+      User? user = FirebaseAuth.instance.currentUser;
+      var user_snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('user_id', isEqualTo: user?.uid)
+          .limit(1)
+          .get();
+
+      setState(() {
+        user_snapshot_id = user_snapshot.docs[0].id;
+        hasNotification = user_snapshot.docs[0]['hasNotification'];
+      });
+    }
+  }
+
 
   @override
   void initState() {
+    loadCart();
     getId();
+    getData();
     setState(() {
       selectedCategory = "shisha";
       selectedCategoryRaw = "Shisha";
@@ -63,11 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     Database database = await openDatabase(dbPath, version: 1);
 
-    var result = await database.rawQuery('SELECT * FROM favourites WHERE product_id = ?',
-        [proId]);
+    var result = await database
+        .rawQuery('SELECT * FROM favourites WHERE product_id = ?', [proId]);
     return result;
   }
-
 
   Widget buildCategories(BuildContext context, DocumentSnapshot document) {
     return GestureDetector(
@@ -137,87 +175,102 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildSpecials(BuildContext context, DocumentSnapshot document) {
-     var isFav = checkFavs(document['id']);
-     print(isFav);
+    var isFav = checkFavs(document['id']);
+    print(isFav);
     return GestureDetector(
-        onTap: (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-              )));
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      ViewProduct(document['id'])));
         },
         child: Center(
             child: Row(
-              children: [
-                Card(
-                    color: Colors.white,
-                    elevation: 2,
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        width: 140,
-                        height: 220,
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned(
-                                top: 15,
-                                left: 15,
-                                child: Center(
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-                                              )));
-                                        },
-                                        child: SizedBox(
-                                          width: 110,
-                                          height: 110,
-                                          child: CachedNetworkImage(
-                                            imageUrl: document["pic_url"],
-                                            imageBuilder: (context, imageProvider) =>
+          children: [
+            Card(
+                color: Colors.white,
+                elevation: 2,
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: 140,
+                    height: 220,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                            top: 15,
+                            left: 15,
+                            child: Center(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  ViewProduct(document['id'])));
+                                    },
+                                    child: SizedBox(
+                                      width: 110,
+                                      height: 110,
+                                      child: CachedNetworkImage(
+                                        imageUrl: document["pic_url"],
+                                        imageBuilder:
+                                            (context, imageProvider) =>
                                                 Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(7),
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                            placeholder: (context, url) => const Icon(
-                                              Icons.image,
-                                              size: 60,
-                                              color: Colors.grey,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
                                             ),
-                                            errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
                                           ),
-                                        )))),
-                            Positioned(
-                              top: 135,
-                              left: 16,
-                              child: Text(
-                                '${document['name']}',
-                                style: TextStyle(
-                                    color: Colors.blueGrey[800],
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 13.5),
-                              ),
-                            ),
-                            Positioned(
-                                top: 156,
-                                left: 16.5,
-                                child: Text(
-                                  'R${document['price']}',
-                                  style: TextStyle(
-                                      color: Colors.yellow[800],
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 14),
-                                )),
-                            Positioned(
-                                top: 5,
-                                right: 9,
-                                child:  Container(
+                                        ),
+                                        placeholder: (context, url) =>
+                                            const Icon(
+                                          Icons.image,
+                                          size: 60,
+                                          color: Colors.grey,
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                      ),
+                                    )))),
+                        Positioned(
+                          top: 135,
+                          left: 10,
+                          child: Text(
+                            '${document['name']}',
+                            style: TextStyle(
+                                color: Colors.blueGrey[800],
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13.5),
+                          ),
+                        ),
+                        Positioned(
+                            top: 156,
+                            left: 10,
+                            child: Text(
+                              'R${document['price']}',
+                              style: TextStyle(
+                                  color: Colors.yellow[800],
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 14),
+                            )),
+                        Positioned(
+                            bottom: 2,
+                            right: 2,
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ViewProduct(document['id'])));
+                                },
+                                child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
@@ -227,73 +280,163 @@ class _HomeScreenState extends State<HomeScreen> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    elevation: 0,
-                                    color: Colors.white,
-                                    child: Icon(
-                                      Icons.favorite,
-                                      color: isFav == "[]"? Colors.black45 : Colors.pink,
+                                    elevation: 1,
+                                    color: Colors.black,
+                                    child: const Icon(
+                                      Icons.shopping_bag_outlined,
+                                      color: Colors.white,
                                       size: 15,
                                     ),
                                   ),
-                                )),
-
-                            Positioned(
-                                bottom: 2,
-                                right: 2,
-                                child:  GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-                                          )));
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      height: 35,
-                                      width: 35,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(50),
-                                        ),
-                                        elevation: 1,
-                                        color: Colors.black,
-                                        child: const Icon(
-                                          Icons.shopping_bag_outlined,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    ))),
-                          ],
-                        ))),
-                const SizedBox(
-                  width: 12,
-                )
-              ],
-            )));
+                                ))),
+                      ],
+                    ))),
+            const SizedBox(
+              width: 12,
+            )
+          ],
+        )));
   }
 
   Widget buildNewOffers(BuildContext context, DocumentSnapshot document) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-              )));
-      },
-    child: Center(
-        child: Row(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      ViewProduct(document['id'])));
+        },
+        child: Center(
+            child: Row(
+          children: [
+            Card(
+                color: Colors.grey[100],
+                elevation: 0,
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.black.withOpacity(0.2)),
+                    ),
+                    width: 140,
+                    height: 220,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                            top: 15,
+                            left: 15,
+                            child: Center(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  ViewProduct(document['id'])));
+                                    },
+                                    child: SizedBox(
+                                      width: 110,
+                                      height: 110,
+                                      child: CachedNetworkImage(
+                                        imageUrl: document["pic_url"],
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) =>
+                                            const Icon(
+                                          Icons.image,
+                                          size: 60,
+                                          color: Colors.grey,
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                      ),
+                                    )))),
+                        Positioned(
+                          top: 135,
+                          left: 16,
+                          child: Text(
+                            '${document['name']}',
+                            style: TextStyle(
+                                color: Colors.blueGrey[800],
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13.5),
+                          ),
+                        ),
+                        Positioned(
+                            top: 156,
+                            left: 16.5,
+                            child: Text(
+                              'R${document['price']}',
+                              style: TextStyle(
+                                  color: Colors.yellow[800],
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 14),
+                            )),
+                        Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ViewProduct(document['id'])));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  height: 35,
+                                  width: 35,
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    elevation: 1,
+                                    color: Colors.black,
+                                    child: const Icon(
+                                      Icons.shopping_bag_outlined,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                ))),
+                      ],
+                    ))),
+            const SizedBox(
+              width: 12,
+            )
+          ],
+        )));
+  }
+
+  Widget buildPopularOffers(BuildContext context, DocumentSnapshot document) {
+    return Center(
+        child: Column(
       children: [
         Card(
-            color: Colors.grey[100],
-            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            color: Colors.white,
+            elevation: 0.4,
             child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.black.withOpacity(0.2)),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                width: 140,
-                height: 220,
+                width: MediaQuery.of(context).size.width * 0.88,
+                height: 180,
                 child: Stack(
                   children: <Widget>[
                     Positioned(
@@ -302,13 +445,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Center(
                             child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-                                      )));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ViewProduct(document['id'])));
                                 },
                                 child: SizedBox(
-                                  width: 110,
-                                  height: 110,
+                                  width: 145,
+                                  height: 150,
                                   child: CachedNetworkImage(
                                     imageUrl: document["pic_url"],
                                     imageBuilder: (context, imageProvider) =>
@@ -331,30 +476,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 )))),
                     Positioned(
-                      top: 135,
-                      left: 16,
+                      top: 25,
+                      left: 176,
                       child: Text(
                         '${document['name']}',
                         style: TextStyle(
                             color: Colors.blueGrey[800],
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13.5),
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16),
                       ),
                     ),
                     Positioned(
-                        top: 156,
-                        left: 16.5,
+                      top: 55,
+                      left: 176,
+                      child: SizedBox(
+                        width: 120,
+                        child: Text(
+                          '${document['description']}',
+                          style: TextStyle(
+                              color: Colors.black.withOpacity(0.6),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13.5),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 15,
+                        left: 176,
                         child: Text(
                           'R${document['price']}',
                           style: TextStyle(
                               color: Colors.yellow[800],
-                              fontWeight: FontWeight.w800,
-                              fontSize: 14),
+                              fontWeight: FontWeight.w900,
+                              fontSize: 15),
                         )),
                     Positioned(
                         top: 5,
-                        right: 9,
-                        child:  Container(
+                        left: 125,
+                        child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                           ),
@@ -366,169 +525,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             elevation: 1,
                             color: Colors.white,
-                              child: const Icon(
-                                Icons.favorite,
-                                color: Colors.black45,
-                                size: 15,
-                              ),
-                          ),
-                        )),
-
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child:  GestureDetector(
-                            onTap: (){
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-                                  )));
-                            },
-                            child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          height: 35,
-                          width: 35,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            elevation: 1,
-                            color: Colors.black,
                             child: const Icon(
-                              Icons.shopping_bag_outlined,
-                              color: Colors.white,
+                              Icons.favorite,
+                              color: Colors.black45,
                               size: 15,
                             ),
                           ),
-                        ))),
-                  ],
-                ))),
-        const SizedBox(
-          width: 12,
-        )
-      ],
-    )));
-  }
-
-  Widget buildPopularOffers(BuildContext context, DocumentSnapshot document) {
-    return Center(
-        child:Column(children: [
-        Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            color: Colors.white,
-                elevation: 0.4,
-                child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: MediaQuery.of(context).size.width*0.88,
-                    height: 180,
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                            top: 15,
-                            left: 15,
-                            child: Center(
-                                child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-                                          )));
-                                    },
-                                    child: SizedBox(
-                                      width: 145,
-                                      height: 150,
-                                      child: CachedNetworkImage(
-                                        imageUrl: document["pic_url"],
-                                        imageBuilder: (context, imageProvider) =>
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(7),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                        placeholder: (context, url) => const Icon(
-                                          Icons.image,
-                                          size: 60,
-                                          color: Colors.grey,
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                      ),
-                                    )))),
-                        Positioned(
-                          top: 25,
-                          left: 176,
-                          child: Text(
-                            '${document['name']}',
-                            style: TextStyle(
-                                color: Colors.blueGrey[800],
-                                fontWeight: FontWeight.w800,
-                                fontSize: 16),
-                          ),
-                        ),
-                        Positioned(
-                          top: 55,
-                          left: 176,
-                          child:SizedBox(
-                            width: 120,
-                            child: Text(
-                            '${document['description']}',
-                            style: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 13.5),
-                          ),) ,
-                        ),
-                        Positioned(
-                            bottom: 15,
-                            left: 176,
-                            child: Text(
-                              'R${document['price']}',
-                              style: TextStyle(
-                                  color: Colors.yellow[800],
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15),
-                            )),
-                        Positioned(
-                            top: 5,
-                            left: 125,
-                            child:  Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              height: 35,
-                              width: 35,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                elevation: 1,
-                                color: Colors.white,
-                                child: const Icon(
-                                  Icons.favorite,
-                                  color: Colors.black45,
-                                  size: 15,
-                                ),
-                              ),
-                            )),
-
-                        Positioned(
-                            bottom: 8,
-                            right: 8,
-                            child:  GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (BuildContext context) => ViewProduct(document['id']
-                                      )));
-                                },
-                                child: Container(
+                        )),
+                    Positioned(
+                        bottom: 8,
+                        right: 8,
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ViewProduct(document['id'])));
+                            },
+                            child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -547,20 +562,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ))),
-                      ],
-                    ))),
-          const SizedBox(
-            height: 10,
-          )
-        ],)
-           );
+                  ],
+                ))),
+        const SizedBox(
+          height: 10,
+        )
+      ],
+    ));
   }
-
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
-     /* GestureDetector(
+      GestureDetector(
           onTap: (){
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) => ViewCategory('Shisha', iconUrl
@@ -575,12 +589,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.cover,
               ),
             ),
-          )), */
+          )),
       GestureDetector(
-          onTap: (){
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) => ViewCategory('Cigars', iconUrl
-                )));
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        ViewCategory('Cigars', iconUrl)));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -591,13 +607,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.cover,
               ),
             ),
-          )
-      ),
+          )),
       GestureDetector(
-        onTap: (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) => ViewCategory('Alcohol', iconUrl
-              )));
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      ViewCategory('Alcohol', iconUrl)));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -615,125 +632,169 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.white.withOpacity(0.97),
-      bottomNavigationBar:  BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         elevation: 0.3,
         shape: const CircularNotchedRectangle(),
         notchMargin: 12,
         color: Colors.white,
         child: SizedBox(
-          height: 63,
-            child:Row(
+            height: 63,
+            child: Row(
               children: [
-
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 63,
-
                   child: Card(
                     elevation: 0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               currentPage = 1;
                             });
                           },
-                          child:  SizedBox(
+                          child: SizedBox(
                             height: 60,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Icon(
-                                  Icons.home
-                                  ,size: 26,color: currentPage == 1? Colors.yellow[800] : Colors.black45,
+                                  Icons.home,
+                                  size: 26,
+                                  color: currentPage == 1
+                                      ? Colors.yellow[800]
+                                      : Colors.black45,
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        cartItems == 0 ?GestureDetector(
-                          onTap: (){
-                            setState(() {
-                              currentPage = 2;
-                            });
-                          },
-                          child:  SizedBox(
-                            height: 60,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Icon(
-                                  Icons.shopping_cart
-                                  ,size: 26,color: currentPage == 2? Colors.yellow[800] : Colors.black45,
+                        globals.cartCount == null
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    currentPage = 2;
+                                  });
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              checkoutPage()));
+                                },
+                                child: SizedBox(
+                                  height: 60,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Icon(
+                                        Icons.shopping_cart,
+                                        size: 26,
+                                        color: currentPage == 2
+                                            ? Colors.yellow[800]
+                                            : Colors.black45,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ): GestureDetector(
-                            onTap: (){
-
-                            },
-                            child:SizedBox(
-                              width: 35,
-                              height: 47,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child: IconButton(
-                                          onPressed: () => {
-                                          Navigator.push(context,
-                                          MaterialPageRoute(builder: (BuildContext context) => checkoutPage()))
-                                          },
-                                          icon: Icon(
-                                            Icons.shopping_cart,
-                                            size: 26,color: currentPage == 2? Colors.yellow[800] : Colors.black45,
-                                          ))),
-                                ],
-                              ),
-                            )),
+                              )
+                            : GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 35,
+                                  height: 47,
+                                  child: Stack(
+                                    children: [
+                                     /* Positioned(
+                                          right: 6,
+                                          child: Container(
+                                            height: 15,
+                                            width: 15,
+                                            child: Center(
+                                                child: Text(
+                                              globals.cartCount.toString(),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 11),
+                                            )),
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          )),*/
+                                      Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: IconButton(
+                                              onPressed: () => {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                checkoutPage()))
+                                                  },
+                                              icon: Icon(
+                                                Icons.shopping_cart,
+                                                size: 26,
+                                                color: currentPage == 2
+                                                    ? Colors.yellow[800]
+                                                    : Colors.black45,
+                                              ))),
+                                    ],
+                                  ),
+                                )),
                         GestureDetector(
-                          onTap: (){
-                            if(signedIn) {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (BuildContext context) => ViewCategory('Favourites', ''
-                                  )));
+                          onTap: () async {
+                            if (signedIn) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ViewCategory('Favourites', '')));
                             } else {
                               Fluttertoast.showToast(
-                                  msg: "Please login to save your favourites.",
+                                  msg: "Please login to view your favourites.",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,
                                   backgroundColor: Colors.black54,
                                   textColor: Colors.white,
-                                  fontSize: 16.0
-                              );
-                              Navigator.push(context,
+                                  fontSize: 16.0);
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString('loginRemoveMethod', 'pop');
+                              Navigator.push(
+                                  context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           loginPage()));
                             }
                           },
-                          child:  SizedBox(
+                          child: SizedBox(
                             height: 60,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Icon(
-                                  Icons.favorite
-                                  ,size: 26,color: currentPage == 3? Colors.yellow[800] : Colors.black45,
+                                  Icons.favorite,
+                                  size: 26,
+                                  color: currentPage == 3
+                                      ? Colors.yellow[800]
+                                      : Colors.black45,
                                 ),
                               ],
                             ),
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){
-                            if(signedIn) {
-                              Navigator.push(context,
+                          onTap: () async {
+                            if (signedIn) {
+                              Navigator.push(
+                                  context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           mySettings()));
@@ -745,22 +806,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                   timeInSecForIosWeb: 1,
                                   backgroundColor: Colors.black54,
                                   textColor: Colors.white,
-                                  fontSize: 16.0
-                              );
-                              Navigator.push(context,
+                                  fontSize: 16.0);
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString('loginRemoveMethod', 'pop');
+                              Navigator.push(
+                                  context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           loginPage()));
                             }
                           },
-                          child:  SizedBox(
+                          child: SizedBox(
                             height: 60,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Icon(
-                                  Icons.person
-                                  ,size: 26, color:currentPage == 4? Colors.yellow[800] : Colors.black45,
+                                  Icons.person,
+                                  size: 26,
+                                  color: currentPage == 4
+                                      ? Colors.yellow[800]
+                                      : Colors.black45,
                                 ),
                               ],
                             ),
@@ -771,24 +838,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ],
-            )
-        ),
+            )),
       ),
       appBar: AppBar(
         backgroundColor: Colors.yellow[700],
-        title: Center(
+        title: GestureDetector(
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          SearchPage()));
+            },
+            child:Center(
             child: SizedBox(
                 height: 46,
                 width: MediaQuery.of(context).size.width,
                 child: Card(
                     elevation: 0.4,
                     child: TextField(
+                      enabled: false,
                       decoration: InputDecoration(
                           focusedBorder: const OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.white, width: 0.0),
                           ),
                           enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 0.0),
+                          ),
+                          disabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18.0),
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 0.0),
@@ -805,7 +885,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 15),
                           labelText: "Search for products",
                           fillColor: Colors.white),
-                    )))),
+                    ))))),
         elevation: 0.3,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
@@ -814,27 +894,37 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 30,
             child: Stack(
               children: [
+                hasNotification? Positioned(
+                    right: 12,
+                    top: 6,
+                    child: Container(
+                      height: 9,
+                      width: 9,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                    )):Container(),
                 Positioned(
                     top: 0,
                     right: 0,
                     child: IconButton(
                         onPressed: () => {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) => notices()))
+
+                        FirebaseFirestore.instance.collection('users').doc(user_snapshot_id).set(
+                        {'hasNotification': false}, SetOptions(merge: true)).then((value) {
+                        //Do your stuff.
+                        }),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          notices()))
                             },
                         icon: const Icon(
                           Icons.notifications_none_rounded,
                           size: 25,
                         ))),
-                Positioned(
-                    top: 9,
-                    right: 13,
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                          color: Colors.red, shape: BoxShape.circle),
-                    ))
               ],
             ),
           )
@@ -849,7 +939,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
                   Center(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
@@ -861,7 +950,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Row(
                             children: [
-                              Container(width: 100,
+                              Container(
+                                width: 100,
                                 height: 110,
                                 decoration: const BoxDecoration(
                                     color: Colors.transparent,
@@ -870,24 +960,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                         image: AssetImage(
                                             'assets/images/logo1.png'),
                                         fit: BoxFit.fitWidth)),
-
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.54,
-                                child:  Text(
+                                child: Text(
                                   'All your Alcohol, Smoke Products and Accessories',
                                   style: TextStyle(
                                       color: Colors.blueGrey[700],
                                       fontWeight: FontWeight.w500),
-                                ) ,
+                                ),
                               )
-
                             ],
                           ),
-
                           const SizedBox(
                             height: 15,
                           ),
@@ -897,28 +984,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Center(
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width*0.9,
-                      child:
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Today\'s Specials',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blueGrey[800]),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Row(
-                              children: const [
-                                Icon(Icons.arrow_right_alt,size: 28,)
-                              ],
-                            ),
-                          ],
-                        ),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Today\'s Specials',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueGrey[800]),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Row(
+                            children: const [
+                              Icon(
+                                Icons.arrow_right_alt,
+                                size: 28,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -929,12 +1017,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       SizedBox(
                         height: 200,
-                        width:
-                        MediaQuery.of(context).size.width * 0.9,
+                        width: MediaQuery.of(context).size.width * 0.9,
                         child: StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection('Products')
-                              .where('category', isEqualTo: selectedCategory.toLowerCase())
+                              .where('specials',
+                                  isEqualTo: true)
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
@@ -944,27 +1032,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             } else {
                               return snapshot.data!.docs.isEmpty
                                   ? const Center(
-                                  child: Text(
-                                    '',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        //fontStyle: FontStyle.italic,
-                                        fontSize: 16),
-                                  ))
+                                      child: Text(
+                                      '',
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          //fontStyle: FontStyle.italic,
+                                          fontSize: 16),
+                                    ))
                                   : ListView.builder(
-                                itemBuilder:
-                                    (context, index) =>
-                                    buildSpecials(
-                                        context,
-                                        snapshot.data!
-                                            .docs[index]),
-                                itemCount: snapshot
-                                    .data!.docs.length,
-                                itemExtent: 170,
-                                shrinkWrap: true,
-                                scrollDirection:
-                                Axis.horizontal,
-                              );
+                                      itemBuilder: (context, index) =>
+                                          buildSpecials(context,
+                                              snapshot.data!.docs[index]),
+                                      itemCount: snapshot.data!.docs.length,
+                                      itemExtent: 170,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                    );
                             }
                           },
                         ),
@@ -974,7 +1057,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 28,
                   ),
-
                   Center(
                     child: SizedBox(
                       height: 200,
@@ -1008,8 +1090,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 28,
                               ),
                               Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Categories',
@@ -1022,7 +1103,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Row(
                                     children: const [
-                                      Icon(Icons.arrow_right_alt,size: 28,)
+                                      Icon(
+                                        Icons.arrow_right_alt,
+                                        size: 28,
+                                      )
                                     ],
                                   ),
                                 ],
@@ -1079,36 +1163,41 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(
                                 height: 17,
                               ),
-
                               GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context,
-                                     MaterialPageRoute(builder: (BuildContext context) => ViewCategory(selectedCategory, iconUrl
-                                    )));
-                                },
-                              child:Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    selectedCategoryRaw,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blueGrey[800]),
-                                  ),
-                                  Row(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                ViewCategory(selectedCategory,
+                                                    iconUrl)));
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'View all ',
+                                        selectedCategoryRaw,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.yellow[800]),
+                                            color: Colors.blueGrey[800]),
                                       ),
-                                      const Icon(Icons.arrow_forward_ios_sharp,size: 20,)
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'View all ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.yellow[800]),
+                                          ),
+                                          const Icon(
+                                            Icons.arrow_forward_ios_sharp,
+                                            size: 20,
+                                          )
+                                        ],
+                                      ),
                                     ],
-                                  ),
-                                ],
-                              )),
+                                  )),
                               const SizedBox(
                                 height: 19,
                               ),
@@ -1122,7 +1211,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: StreamBuilder<QuerySnapshot>(
                                       stream: FirebaseFirestore.instance
                                           .collection('Products')
-                                          .where('category', isEqualTo: selectedCategory.toLowerCase())
+                                          .where('category',
+                                              isEqualTo: selectedCategory
+                                                  .toLowerCase())
                                           .snapshots(),
                                       builder: (context, snapshot) {
                                         if (!snapshot.hasData) {
@@ -1164,7 +1255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Popular',
@@ -1173,23 +1264,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.blueGrey[800]),
                                   ),
                                   GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (BuildContext context) => ViewCategory('Favourites', ''
-                                          )));
-                                    },
-                                  child:Row(
-                                    children: [
-                                      Text(
-                                        'View all ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.yellow[800]),
-                                      ),
-                                      const Icon(Icons.arrow_forward_ios_sharp,size: 20,)
-                                    ],
-                                  )
-                                  ),
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        ViewCategory(
+                                                            'Popular', '')));
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'View all ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.yellow[800]),
+                                          ),
+                                          const Icon(
+                                            Icons.arrow_forward_ios_sharp,
+                                            size: 20,
+                                          )
+                                        ],
+                                      )),
                                 ],
                               ),
                               const SizedBox(
@@ -1198,45 +1295,43 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox(
                                   height: 200,
                                   width:
-                                  MediaQuery.of(context).size.width * 0.9,
-                              child:StreamBuilder<QuerySnapshot>(
-                                stream: FirebaseFirestore.instance
-                                    .collection('Products')
-                                   // .where('category', isEqualTo: selectedCategory.toLowerCase())
-                                    .snapshots(),
-                                builder: (context, snapshot) {
-                                  if (!snapshot.hasData) {
-                                    return const Center(
-                                      child: Text('....'),
-                                    );
-                                  } else {
-                                    return snapshot.data!.docs.isEmpty
-                                        ? const Center(
-                                        child: Text(
-                                          '',
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              //fontStyle: FontStyle.italic,
-                                              fontSize: 16),
-                                        ))
-                                        : ListView.builder(
-                                      itemBuilder:
-                                          (context, index) =>
-                                          buildNewOffers(
-                                              context,
-                                              snapshot.data!
-                                                  .docs[index]),
-                                      itemCount: snapshot
-                                          .data!.docs.length,
-                                      itemExtent: 170,
-                                      shrinkWrap: true,
-                                      scrollDirection:
-                                      Axis.horizontal,
-                                    );
-                                  }
-                                },
-                              )
-      ),
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  child: StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('Products')
+                                        .where('popular', isEqualTo: true)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return const Center(
+                                          child: Text('....'),
+                                        );
+                                      } else {
+                                        return snapshot.data!.docs.isEmpty
+                                            ? const Center(
+                                                child: Text(
+                                                '',
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    //fontStyle: FontStyle.italic,
+                                                    fontSize: 16),
+                                              ))
+                                            : ListView.builder(
+                                                itemBuilder: (context, index) =>
+                                                    buildNewOffers(
+                                                        context,
+                                                        snapshot
+                                                            .data!.docs[index]),
+                                                itemCount:
+                                                    snapshot.data!.docs.length,
+                                                itemExtent: 170,
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                              );
+                                      }
+                                    },
+                                  )),
                             ],
                           ))),
                   const SizedBox(

@@ -1,17 +1,34 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "/Users/pro2019/StudioProjects/shisha_app_/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "/Users/pro2019/.gradle/caches/transforms-3/5e89aec7f1d3cb2162f58cfc6f607cd4/transformed/appcompat-1.2.0/res/values-night-v8/values-night-v8.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,125,209,293,389,491,593,687",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "120,204,288,384,486,588,682,771"
+                    },
+                    "to": {
+                        "startLines": "10,11,12,13,14,15,16,17",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "521,591,675,759,855,957,1059,1153",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "586,670,754,850,952,1054,1148,1237"
+                    }
+                },
+                {
+                    "source": "/Users/pro2019/StudioProjects/shisha_app_/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
-                        "startOffsets": "175,820",
+                        "startOffsets": "172,806",
                         "endLines": "7,16",
                         "endColumns": "12,12",
-                        "endOffsets": "471,986"
+                        "endOffsets": "464,970"
                     },
                     "to": {
                         "startLines": "2,7",

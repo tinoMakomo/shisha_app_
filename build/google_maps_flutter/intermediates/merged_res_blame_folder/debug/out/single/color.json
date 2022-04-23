@@ -1,14 +1,14 @@
 [
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_light.xml",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\ebdc82443e39cb493c9a28d051f38d59\\transformed\\jetified-play-services-base-17.0.0\\res\\color\\common_google_signin_btn_text_light.xml"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/google_maps_flutter/intermediates/res/merged/debug/color/common_google_signin_btn_text_light.xml",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/ebdc82443e39cb493c9a28d051f38d59/transformed/jetified-play-services-base-17.0.0/res/color/common_google_signin_btn_text_light.xml"
     },
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_dark.xml",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\ebdc82443e39cb493c9a28d051f38d59\\transformed\\jetified-play-services-base-17.0.0\\res\\color\\common_google_signin_btn_text_dark.xml"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/google_maps_flutter/intermediates/res/merged/debug/color/common_google_signin_btn_tint.xml",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/ebdc82443e39cb493c9a28d051f38d59/transformed/jetified-play-services-base-17.0.0/res/color/common_google_signin_btn_tint.xml"
     },
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_tint.xml",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\ebdc82443e39cb493c9a28d051f38d59\\transformed\\jetified-play-services-base-17.0.0\\res\\color\\common_google_signin_btn_tint.xml"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/google_maps_flutter/intermediates/res/merged/debug/color/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/ebdc82443e39cb493c9a28d051f38d59/transformed/jetified-play-services-base-17.0.0/res/color/common_google_signin_btn_text_dark.xml"
     }
 ]

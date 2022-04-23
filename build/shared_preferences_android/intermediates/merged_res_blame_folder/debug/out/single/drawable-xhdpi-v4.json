@@ -1,22 +1,22 @@
 [
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\660e858b68a2436090001843e9989443\\transformed\\core-1.6.0\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/shared_preferences_android/intermediates/res/merged/debug/drawable-xhdpi-v4/notification_bg_normal.9.png",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/660e858b68a2436090001843e9989443/transformed/core-1.6.0/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
     },
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\660e858b68a2436090001843e9989443\\transformed\\core-1.6.0\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/shared_preferences_android/intermediates/res/merged/debug/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/660e858b68a2436090001843e9989443/transformed/core-1.6.0/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_normal.9.png",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\660e858b68a2436090001843e9989443\\transformed\\core-1.6.0\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/shared_preferences_android/intermediates/res/merged/debug/drawable-xhdpi-v4/notification_bg_low_normal.9.png",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/660e858b68a2436090001843e9989443/transformed/core-1.6.0/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
     },
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\660e858b68a2436090001843e9989443\\transformed\\core-1.6.0\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/shared_preferences_android/intermediates/res/merged/debug/drawable-xhdpi-v4/notification_bg_low_pressed.9.png",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/660e858b68a2436090001843e9989443/transformed/core-1.6.0/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
-        "merged": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png",
-        "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\660e858b68a2436090001843e9989443\\transformed\\core-1.6.0\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
+        "merged": "/Users/pro2019/StudioProjects/shisha_app_/build/shared_preferences_android/intermediates/res/merged/debug/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png",
+        "source": "/Users/pro2019/.gradle/caches/transforms-3/660e858b68a2436090001843e9989443/transformed/core-1.6.0/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
     }
 ]

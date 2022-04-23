@@ -5,7 +5,7 @@ package com.example.shisha_app;
 
 public final class BuildConfig {
   public static final boolean DEBUG = false;
-  public static final String APPLICATION_ID = "com.example.shisha_app";
+  public static final String APPLICATION_ID = "app.smoke24.shisha_app";
   public static final String BUILD_TYPE = "release";
   public static final int VERSION_CODE = 1;
   public static final String VERSION_NAME = "1.0.0";

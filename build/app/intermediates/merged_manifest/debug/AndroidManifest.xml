@@ -6,14 +6,22 @@
 
     <uses-sdk
         android:minSdkVersion="20"
-        android:targetSdkVersion="31" />
+        android:targetSdkVersion="28" />
     <!--
          Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <queries>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries> <!-- Required by older versions of Google Play services to create IID tokens -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <uses-feature
@@ -25,7 +33,7 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/launcher_icon"
-        android:label="shisha_app" >
+        android:label="smoke24" >
         <activity
             android:name="com.example.shisha_app.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -123,6 +131,20 @@
             android:authorities="com.example.shisha_app.flutterfirebasemessaginginitprovider"
             android:exported="false"
             android:initOrder="99" />
+
+        <activity
+            android:name="com.pichillilorenzo.flutter_inappwebview.in_app_browser.InAppBrowserActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.ChromeCustomTabsActivity"
+            android:theme="@style/ThemeTransparent" />
+
+        <receiver android:name="com.pichillilorenzo.flutter_inappwebview.chrome_custom_tabs.ActionBroadcastReceiver" />
+
+        <meta-data
+            android:name="io.flutter.embedded_views_preview"
+            android:value="true" />
 
         <uses-library
             android:name="androidx.window.extensions"

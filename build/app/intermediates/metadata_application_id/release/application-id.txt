@@ -1,1 +1,1 @@
-com.example.shisha_app
+app.smoke24.shisha_app

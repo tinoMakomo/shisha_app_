@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shisha_app/pages/homeScreen.dart';
 import 'package:shisha_app/pages/signUp.dart';
-
 
 class loginPage extends StatefulWidget {
   @override
@@ -11,7 +11,6 @@ class loginPage extends StatefulWidget {
 }
 
 class loginPageState extends State<loginPage> {
-
   var overlayLoader;
   showLoader(BuildContext context) async {
     OverlayState? overlayState = Overlay.of(context);
@@ -47,9 +46,19 @@ class loginPageState extends State<loginPage> {
   String retrievedPassword = "";
   var error;
   bool isLoading = false;
+  String removeMethod = "";
+
+  getPopMethod() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? popMethod = prefs.getString('loginRemoveMethod');
+    setState(() {
+      removeMethod = popMethod!;
+    });
+  }
 
   @override
   void initState() {
+    getPopMethod();
     super.initState();
   }
 
@@ -81,179 +90,258 @@ class loginPageState extends State<loginPage> {
                 child: Center(
                   child: SingleChildScrollView(
                       child: Column(
+                    children: <Widget>[
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.transparent,
+                        ),
+                        child: Image.asset('assets/images/logo1.png'),
+                        height: MediaQuery.of(context).size.height * 0.27,
+                        width: MediaQuery.of(context).size.width * 0.55,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.06,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                            ),
-                            child: Image.asset('assets/images/logo1.png'),
-                            height: MediaQuery.of(context).size.height * 0.27,
-                            width: MediaQuery.of(context).size.width * 0.55,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.perm_identity,
-                                color: Colors.yellow[800],
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(0)),
-                                width: MediaQuery.of(context).size.width * 0.65,
-                                height: 45,
-                                child: TextFormField(
-                                  // keyboardType: TextInputType.number,
-                                  // maxLength: 10,
-
-                                  controller: _controller2,
-
-                                  decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                          borderSide:
-                                          const BorderSide(color: Colors.white)),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(color: Colors.white),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      hintText: "Email",
-                                      hintStyle: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w500)),
-                                ),
-                              ),
-                            ],
+                          Icon(
+                            Icons.perm_identity,
+                            color: Colors.yellow[800],
                           ),
                           const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.lock,
-                                color: Colors.yellow[800],
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.65,
-                                height: 45,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(0)),
-                                child: TextFormField(
-                                  obscureText: true,
-                                  controller: _controller,
-                                  decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                          borderSide:
-                                          const BorderSide(color: Colors.white)),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(color: Colors.white),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      hintText: "Password",
-                                      hintStyle: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w500)),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 40,
+                            width: 10,
                           ),
                           Container(
-                            color: Colors.yellow[800],
-                              width: MediaQuery.of(context).size.width * 0.73,
-                              height:40,
-                              child: TextButton(
-                                  onPressed: signIn,
-                                  child: const Text(
-                                    'Login',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                    textAlign: TextAlign.left,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(0)),
+                            width: MediaQuery.of(context).size.width * 0.65,
+                            height: 45,
+                            child: TextFormField(
+                              // keyboardType: TextInputType.number,
+                              // maxLength: 10,
+
+                              controller: _controller2,
+
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  )),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              showDialog(context: context,
-                                  builder: (BuildContext context){
-                                    return AlertDialog(
-                                      title: Text('Retrieve Your Password',style: TextStyle(color: Colors.red[900],fontSize:12,fontWeight: FontWeight.w600),),
-                                      content: SizedBox(
-                                        width: 350,
-                                        height: 150,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            TextFormField(
-                                              controller: _controller3,
-
-                                              decoration: InputDecoration(
-                                                hintText: 'username',
-                                                hintStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize:
-                                                    MediaQuery.of(context).size.width *
-                                                        0.03),
-                                              ),
-
-                                            ),
-
-                                          ],
-                                        ),
-                                      ),
-                                      actions: const <Widget>[
-
-                                      ],
-                                    );
-                                  }
-                              );
-                            },
-                            child: Text(
-                              'Forgot Password',
-                              style: TextStyle(
-                                color: Colors.yellow[800],
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height:2,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (BuildContext context) => signUpPage()));
-                            },
-                            child: Text(
-                              'Create Account',
-                              style: TextStyle(
-                                color: Colors.yellow[800],
-                                fontSize: 12,
-                              ),
+                                  hintText: "Email",
+                                  hintStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w500)),
                             ),
                           ),
                         ],
-                      )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.lock,
+                            color: Colors.yellow[800],
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.65,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(0)),
+                            child: TextFormField(
+                              obscureText: true,
+                              controller: _controller,
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  hintText: "Password",
+                                  hintStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                          color: Colors.yellow[800],
+                          width: MediaQuery.of(context).size.width * 0.73,
+                          height: 40,
+                          child: TextButton(
+                            onPressed: signIn,
+                            child: const Text(
+                              'Login',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                              textAlign: TextAlign.left,
+                            ),
+                          )),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    'Reset Password',
+                                    style: TextStyle(
+                                        color: Colors.yellow[800],
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  content: SizedBox(
+                                    width: 350,
+                                    height: 100,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        TextFormField(
+                                          controller: _controller3,
+                                          decoration: InputDecoration(
+                                            hintText: 'Enter Your Email Address',
+                                            hintStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.03),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text(
+                                          'CANCEL',
+                                          style: TextStyle(
+                                              color: Colors.yellow[800]),
+                                        )),
+                                    TextButton(
+                                        onPressed: () async {
+                                          if (_controller3.text == "") {
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Please enter your email address",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.black54,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                          } else {
+                                            try {
+                                              showLoader(context);
+                                              await auth.sendPasswordResetEmail(
+                                                  email:
+                                                      _controller3.text.trim());
+                                              Navigator.of(context).pop();
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      "A password reset link has been sent to your email.",
+                                                  toastLength:
+                                                      Toast.LENGTH_LONG,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.black54,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                              dismissLoader();
+                                            } catch (e) {
+                                              dismissLoader();
+                                              print(e.toString());
+                                              Navigator.of(context).pop();
+                                              Fluttertoast.showToast(
+                                                  msg: e.toString(),
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.black54,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+                                            }
+                                          }
+                                        },
+                                        child: Text('RESET PASSWORD',
+                                            style: TextStyle(
+                                                color: Colors.yellow[800])))
+                                  ],
+                                );
+                              });
+                        },
+                        child: Text(
+                          'Forgot Password',
+                          style: TextStyle(
+                            color: Colors.yellow[800],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      signUpPage()));
+                        },
+                        child: Text(
+                          'Create Account',
+                          style: TextStyle(
+                            color: Colors.yellow[800],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      IconButton(onPressed: (){
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    HomeScreen()));
+                      }, icon: Icon(Icons.home, color: Colors.yellow[800],))
+                    ],
+                  )),
                 ))));
   }
 
@@ -265,8 +353,7 @@ class loginPageState extends State<loginPage> {
           isLoading = true;
         });
         await auth.signInWithEmailAndPassword(
-            email: _controller2.text,
-            password: _controller.text);
+            email: _controller2.text.trim(), password: _controller.text);
 
         dismissLoader();
         _formKeyLogin.currentState?.reset();
@@ -277,12 +364,17 @@ class loginPageState extends State<loginPage> {
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.black54,
             textColor: Colors.white,
-            fontSize: 16.0
-        );
-        Navigator.push(context,
-            MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+            fontSize: 16.0);
+        if (removeMethod == "pop") {
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+              HomeScreen()), (Route<dynamic> route) => false);
+        } else {
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+              HomeScreen()), (Route<dynamic> route) => false);
+        }
       } catch (e) {
         dismissLoader();
+        String error = e.toString().substring(e.toString().indexOf(']')+1, e.toString().length );
 
         showDialog(
             context: context,
@@ -291,7 +383,7 @@ class loginPageState extends State<loginPage> {
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 //title: Icon(Icons.warning),
-                content: Text(e.toString()),
+                content: Text(error),
                 actions: <Widget>[
                   TextButton(
                       onPressed: () {
@@ -310,8 +402,7 @@ class loginPageState extends State<loginPage> {
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.black54,
           textColor: Colors.white,
-          fontSize: 16.0
-      );
+          fontSize: 16.0);
     }
   }
 }

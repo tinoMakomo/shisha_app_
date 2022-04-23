@@ -4,7 +4,7 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.example.shisha_app",
+  "applicationId": "app.smoke24.shisha_app",
   "variantName": "release",
   "elements": [
     {

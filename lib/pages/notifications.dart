@@ -34,7 +34,6 @@ class noticesState extends State<notices> {
   var uuid = Uuid();
 
   Widget buildMessages(BuildContext context, DocumentSnapshot document) {
-
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

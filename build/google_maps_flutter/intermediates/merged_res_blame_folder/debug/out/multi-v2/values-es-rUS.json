@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\google_maps_flutter\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es-rUS\\values-es-rUS.xml",
+            "outputFile": "/Users/pro2019/StudioProjects/shisha_app_/build/google_maps_flutter/intermediates/incremental/mergeDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\660e858b68a2436090001843e9989443\\transformed\\core-1.6.0\\res\\values-es-rUS\\values-es-rUS.xml",
+                    "source": "/Users/pro2019/.gradle/caches/transforms-3/660e858b68a2436090001843e9989443/transformed/core-1.6.0/res/values-es-rUS/values-es-rUS.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\6dfe55f2892c904b30694fb29ee43466\\transformed\\jetified-play-services-basement-17.0.0\\res\\values-es-rUS\\values.xml",
+                    "source": "/Users/pro2019/.gradle/caches/transforms-3/6dfe55f2892c904b30694fb29ee43466/transformed/jetified-play-services-basement-17.0.0/res/values-es-rUS/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\ebdc82443e39cb493c9a28d051f38d59\\transformed\\jetified-play-services-base-17.0.0\\res\\values-es-rUS\\values.xml",
+                    "source": "/Users/pro2019/.gradle/caches/transforms-3/ebdc82443e39cb493c9a28d051f38d59/transformed/jetified-play-services-base-17.0.0/res/values-es-rUS/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -57,10 +57,10 @@
             ]
         },
         {
-            "outputFile": "C:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\values-es-rUS\\values-es-rUS.xml",
+            "outputFile": "/Users/pro2019/StudioProjects/shisha_app_/build/google_maps_flutter/intermediates/res/merged/debug/values-es-rUS/values-es-rUS.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\660e858b68a2436090001843e9989443\\transformed\\core-1.6.0\\res\\values-es-rUS\\values-es-rUS.xml",
+                    "source": "/Users/pro2019/.gradle/caches/transforms-3/660e858b68a2436090001843e9989443/transformed/core-1.6.0/res/values-es-rUS/values-es-rUS.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -77,7 +77,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\6dfe55f2892c904b30694fb29ee43466\\transformed\\jetified-play-services-basement-17.0.0\\res\\values-es-rUS\\values.xml",
+                    "source": "/Users/pro2019/.gradle/caches/transforms-3/6dfe55f2892c904b30694fb29ee43466/transformed/jetified-play-services-basement-17.0.0/res/values-es-rUS/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -94,7 +94,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-3\\ebdc82443e39cb493c9a28d051f38d59\\transformed\\jetified-play-services-base-17.0.0\\res\\values-es-rUS\\values.xml",
+                    "source": "/Users/pro2019/.gradle/caches/transforms-3/ebdc82443e39cb493c9a28d051f38d59/transformed/jetified-play-services-base-17.0.0/res/values-es-rUS/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

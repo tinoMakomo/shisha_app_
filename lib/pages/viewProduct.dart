@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shisha_app/pages/checkout.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as Path;
+import '/utils/globals.dart' as globals;
 
 class ViewProduct extends StatefulWidget {
   String productID;
@@ -41,6 +43,40 @@ class _ViewProductState extends State<ViewProduct> {
   String boxPrice = "0";
   bool isInCart = false;
   var overlayLoader;
+  final databaseReference = FirebaseFirestore.instance;
+
+  updateCartCount() async {
+    String databasesPath = await getDatabasesPath();
+    String dbPath = Path.join(databasesPath, 'tables');
+
+    Database database = await openDatabase(dbPath, version: 1);
+
+    var result = await database.rawQuery('SELECT * FROM cart');
+    setState(() {
+      globals.cartCount = Sqflite.firstIntValue(result);
+    });
+    print(globals.cartCount);
+  }
+
+  checkFavs() async {
+    String databasesPath = await getDatabasesPath();
+    String dbPath = Path.join(databasesPath, 'tables');
+
+    Database database = await openDatabase(dbPath, version: 1);
+
+    var favo = await database
+        .rawQuery('SELECT * FROM favourites WHERE product_id=?', [productID]);
+
+    if (favo.toString() == '[]') {
+      setState(() {
+        fav = false;
+      });
+    } else {
+      setState(() {
+        fav = true;
+      });
+    }
+  }
 
   getProductData() async {
     FirebaseFirestore.instance
@@ -67,7 +103,22 @@ class _ViewProductState extends State<ViewProduct> {
     });
   }
 
-  checkCart()async{
+  bool signedIn = false;
+  String userid = "";
+  bool fav = false;
+
+  getId() async {
+    if (await FirebaseAuth.instance.currentUser != null) {
+      print('signed in');
+      setState(() {
+        signedIn = true;
+        userid = FirebaseAuth.instance.currentUser!.uid;
+      });
+    }
+    print(userid);
+  }
+
+  checkCart() async {
     String databasesPath = await getDatabasesPath();
     String dbPath = Path.join(databasesPath, 'tables');
 
@@ -78,16 +129,20 @@ class _ViewProductState extends State<ViewProduct> {
 
     if (cart.toString() == '[]') {
       setState(() {
-        isInCart = true;
+        isInCart = false;
       });
     } else {
       setState(() {
-        isInCart = false;
+        isInCart = true;
       });
     }
+    print(cart.toString());
   }
+
   @override
   void initState() {
+    checkFavs();
+    getId();
     checkCart();
     getProductData();
     super.initState();
@@ -306,19 +361,107 @@ class _ViewProductState extends State<ViewProduct> {
               actions: <Widget>[
                 SizedBox(
                     height: MediaQuery.of(context).size.height * 0.03,
-                    child: IconButton(
-                        icon: const Icon(
-                          Icons.favorite,
-                          size: 20,
-                          color: Colors.black54,
-                        ),
-                        onPressed: () async {})),
+                    child: fav
+                        ? IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              size: 20,
+                              color: Colors.red[900],
+                            ),
+                            onPressed: () async {
+                              if (signedIn) {
+                                databaseReference
+                                    .collection(userid + 'favourites')
+                                    .doc(productID)
+                                    .delete()
+                                    .then((value) async {
+                                  String databasesPath =
+                                      await getDatabasesPath();
+                                  String dbPath =
+                                      Path.join(databasesPath, 'tables');
+
+                                  Database database =
+                                      await openDatabase(dbPath, version: 1);
+
+                                  await database.transaction((txn) async {
+                                    int id1 = await txn.rawDelete(
+                                        'DELETE FROM favourites WHERE product_id = ?',
+                                        [productID]);
+                                  }).then((value) {
+                                    setState(() {
+                                      fav = false;
+                                    });
+                                  });
+                                });
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        "Please login first to remove favourites",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.black54,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
+                            })
+                        : IconButton(
+                            icon: const Icon(
+                              Icons.favorite,
+                              size: 20,
+                              color: Colors.black54,
+                            ),
+                            onPressed: () async {
+                              if (signedIn) {
+                                databaseReference
+                                    .collection(userid + 'favourites')
+                                    .doc(productID)
+                                    .set({
+                                  'category': productCategory,
+                                  'description': productDescription,
+                                  'product_id': productID,
+                                  'id': productID,
+                                  'name': productName,
+                                  'pic_url': picUrl,
+                                  'price': productPrice,
+                                }).then((_) async {
+                                  String databasesPath =
+                                      await getDatabasesPath();
+                                  String dbPath =
+                                      Path.join(databasesPath, 'tables');
+
+                                  Database database =
+                                      await openDatabase(dbPath, version: 1);
+
+                                  await database.transaction((txn) async {
+                                    int id1 = await txn.rawInsert(
+                                        'INSERT INTO favourites(product_id) VALUES(?)',
+                                        [
+                                          productID,
+                                        ]);
+                                  }).then((value) {
+                                    setState(() {
+                                      fav = true;
+                                    });
+                                  });
+                                });
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "Please login first to add favourites",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.black54,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
+                            })),
               ],
               pinned: true,
               backgroundColor: Colors.white,
               iconTheme: const IconThemeData(
                 color: Colors.black,
-                size: 50,
+                size: 34,
               ),
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
@@ -367,9 +510,9 @@ class _ViewProductState extends State<ViewProduct> {
                                     onTap: () {
                                       if (selectedMethod == "rent") {
                                         setState(() {
-                                          total =
-                                              (total - double.parse(rentPrice)) +
-                                                  double.parse(productPrice);
+                                          total = (total -
+                                                  double.parse(rentPrice)) +
+                                              double.parse(productPrice);
                                         });
                                       }
                                       setState(() {
@@ -516,7 +659,8 @@ class _ViewProductState extends State<ViewProduct> {
                                           if (selectedCigar == "cigar") {
                                             setState(() {
                                               total = (total -
-                                                      double.parse(productPrice)) +
+                                                      double.parse(
+                                                          productPrice)) +
                                                   double.parse(boxPrice);
                                             });
                                           }
@@ -786,136 +930,155 @@ class _ViewProductState extends State<ViewProduct> {
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 65,
-                    child: isInCart? ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.yellow[800]),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                    child: !isInCart
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.yellow[800]),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              'Add to Cart (R' + total.toString() + ')',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () async {
+                              showLoader(context);
+                              try {
+                                String databasesPath = await getDatabasesPath();
+                                String dbPath =
+                                    Path.join(databasesPath, 'tables');
+
+                                Database database =
+                                    await openDatabase(dbPath, version: 1);
+
+                                if (productCategory == 'shisha') {
+                                  await database.transaction((txn) async {
+                                    await txn.rawInsert(
+                                        'INSERT INTO cart(product_id, productName, productPrice, productPic, flavourName, flavourPrice, flavour_id, charcoalName, charcoalPrice, charcoal_id, total_price, selectedMethod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+                                        [
+                                          productID,
+                                          productName,
+                                          selectedMethod == 'buy'
+                                              ? productPrice
+                                              : rentPrice,
+                                          picUrl,
+                                          flavourName,
+                                          selectedFlavourPrice,
+                                          flavourID,
+                                          charcoalName,
+                                          selectedCharcoalPrice,
+                                          charcoalID,
+                                          total.toString(),
+                                          selectedMethod
+                                        ]);
+                                  }).then((value) {
+                                    setState(() {
+                                      isInCart = true;
+                                    });
+                                  });
+                                } else if (productCategory == 'cigars') {
+                                  await database.transaction((txn) async {
+                                    await txn.rawInsert(
+                                        'INSERT INTO cart(product_id, productName, productPrice, productPic, flavourName, flavourPrice, flavour_id, charcoalName, charcoalPrice, charcoal_id, total_price, selectedMethod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+                                        [
+                                          productID,
+                                          productName,
+                                          selectedCigar == 'cigar'
+                                              ? productPrice
+                                              : boxPrice,
+                                          picUrl,
+                                          flavourName,
+                                          selectedFlavourPrice,
+                                          flavourID,
+                                          charcoalName,
+                                          selectedCharcoalPrice,
+                                          charcoalID,
+                                          total.toString(),
+                                          selectedMethod
+                                        ]);
+                                  }).then((value) {
+                                    setState(() {
+                                      isInCart = true;
+                                    });
+                                  });
+                                } else {
+                                  await database.transaction((txn) async {
+                                    await txn.rawInsert(
+                                        'INSERT INTO cart(product_id, productName, productPrice, productPic, flavourName, flavourPrice, flavour_id, charcoalName, charcoalPrice, charcoal_id, total_price, selectedMethod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+                                        [
+                                          productID,
+                                          productName,
+                                          productPrice,
+                                          picUrl,
+                                          flavourName,
+                                          selectedFlavourPrice,
+                                          flavourID,
+                                          charcoalName,
+                                          selectedCharcoalPrice,
+                                          charcoalID,
+                                          total.toString(),
+                                          selectedMethod
+                                        ]);
+                                  }).then((value) {
+                                    setState(() {
+                                      isInCart = true;
+                                    });
+                                  });
+                                }
+                                dismissLoader();
+                                print(isInCart);
+                              } catch (e) {
+                                print(e.toString());
+                                dismissLoader();
+                                if ((e.toString().toLowerCase())
+                                    .contains('unique')) {
+                                  Fluttertoast.showToast(
+                                      msg: "Product already added to cart",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.black54,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                }
+                              }
+                              updateCartCount();
+                            },
+                          )
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.green[700]),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              'PROCEED TO CHECKOUT',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          checkoutPage()));
+                            },
                           ),
-                        ),
-                      ),
-                      child: Text(
-                        'Add to Cart (R' + total.toString() + ')',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () async {
-                        showLoader(context);
-                        try {
-                          String databasesPath = await getDatabasesPath();
-                          String dbPath = Path.join(databasesPath, 'tables');
-
-                          Database database =
-                              await openDatabase(dbPath, version: 1);
-
-                          if(productCategory == 'shisha'){
-                            await database.transaction((txn) async {
-                              await txn.rawInsert(
-                                  'INSERT INTO cart(product_id, productName, productPrice, productPic, flavourName, flavourPrice, flavour_id, charcoalName, charcoalPrice, charcoal_id, total_price, selectedMethod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
-                                  [
-                                    productID,
-                                    productName,
-                                    selectedMethod == 'buy'? productPrice : rentPrice,
-                                    picUrl,
-                                    flavourName,
-                                    selectedFlavourPrice,
-                                    flavourID,
-                                    charcoalName,
-                                    selectedCharcoalPrice,
-                                    charcoalID,
-                                    total.toString(),
-                                    selectedMethod
-                                  ]);
-                            });
-                          } else if (productCategory == 'cigars') {
-                            await database.transaction((txn) async {
-                              await txn.rawInsert(
-                                  'INSERT INTO cart(product_id, productName, productPrice, productPic, flavourName, flavourPrice, flavour_id, charcoalName, charcoalPrice, charcoal_id, total_price, selectedMethod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
-                                  [
-                                    productID,
-                                    productName,
-                                    selectedCigar == 'cigar'? productPrice : boxPrice,
-                                    picUrl,
-                                    flavourName,
-                                    selectedFlavourPrice,
-                                    flavourID,
-                                    charcoalName,
-                                    selectedCharcoalPrice,
-                                    charcoalID,
-                                    total.toString(),
-                                    selectedMethod
-                                  ]);
-                            });
-                          } else {
-                            await database.transaction((txn) async {
-                              await txn.rawInsert(
-                                  'INSERT INTO cart(product_id, productName, productPrice, productPic, flavourName, flavourPrice, flavour_id, charcoalName, charcoalPrice, charcoal_id, total_price, selectedMethod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
-                                  [
-                                    productID,
-                                    productName,
-                                    productPrice,
-                                    picUrl,
-                                    flavourName,
-                                    selectedFlavourPrice,
-                                    flavourID,
-                                    charcoalName,
-                                    selectedCharcoalPrice,
-                                    charcoalID,
-                                    total.toString(),
-                                    selectedMethod
-                                  ]);
-                            });
-                          }
-
-                          setState(() {
-                            isInCart = true;
-                          });
-
-                          dismissLoader();
-                        } catch (e) {
-                          print(e.toString());
-                          dismissLoader();
-                          if((e.toString().toLowerCase()).contains('unique')){
-                            Fluttertoast.showToast(
-                                msg: "Product already added to cart",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black54,
-                                textColor: Colors.white,
-                                fontSize: 16.0
-                            );
-                          }
-                        }
-                      },
-                    ):ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(Colors.green[700]),
-                        shape:
-                        MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        'PROCEED TO CHECKOUT',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () async {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) => checkoutPage()));
-                      },
-                    ),
                   ),
                 ),
               ),

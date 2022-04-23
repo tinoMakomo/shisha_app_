@@ -1,4 +1,0 @@
-#Tue Mar 29 13:40:55 CAT 2022
-base.0=C\:\\Users\\USER\\Documents\\StudioProjects\\shisha_app\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
